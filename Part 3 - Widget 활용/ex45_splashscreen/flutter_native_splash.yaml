@@ -1,0 +1,24 @@
+flutter_native_splash:
+
+  # color: "#42a5f5"
+  background_image: "assets/images/intro.png"
+  
+  #image: assets/splash.png
+
+  #color_dark: "#042a49"
+  #background_image_dark: "assets/dark-background.png"
+  #image_dark: assets/splash-invert.png
+
+  #android: false
+  #ios: false
+  #web: false
+
+  #android_gravity: center
+  #ios_content_mode: center
+  #fullscreen: true
+  
+  #info_plist_files:
+  #  - 'ios/Runner/Info-Debug.plist'
+  #  - 'ios/Runner/Info-Release.plist'
+
+  #android12: true
