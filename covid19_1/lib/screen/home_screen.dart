@@ -5,6 +5,8 @@ import 'package:covid19_1/widgets/my_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:covid19_1/widgets/weekly_chart.dart';
+import 'package:covid19_1/widgets/line_chart.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -144,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: <Widget>[
                         Consumer<MyData>(
                           builder: (context, myData, child) {
-                            print("여기 빌드됨1");
+                            // print("여기 빌드됨1");
                             return Counter(
                                 color: kInfectedColor,
                                 number: myData.decideCnt,
@@ -154,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Consumer<MyData>(
                           builder: (context, myData, child) {
-                            print("여기 빌드됨2");
+                            // print("여기 빌드됨2");
                             return Counter(
                               color: kDeathColor,
                               number: myData.deathCnt,
@@ -164,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Consumer<MyData>(
                           builder: (context, myData, child) {
-                            print("여기 빌드됨3");
+                            // print("여기 빌드됨3");
                             return Counter(
                               color: kRecovercolor,
                               number: myData.clearCnt,
@@ -175,8 +177,98 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "일별 감염 현황\n",
+                              style: kTitleTextstyle,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Spacer(),
+                      Text(
+                        "See details",
+                        style: TextStyle(
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
                   SizedBox(height: 20),
-
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 4),
+                          blurRadius: 30,
+                          color: kShadowColor,
+                        ),
+                      ],
+                    ),
+                    child: WeeklyChart()
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "일별 감염 현황 2\n",
+                              style: kTitleTextstyle,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Spacer(),
+                      Text(
+                        "See details",
+                        style: TextStyle(
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 4),
+                          blurRadius: 30,
+                          color: kShadowColor,
+                        ),
+                      ],
+                    ),
+                    child: LineReportChart()
+                  ),
                 ],
               ),
             ),
