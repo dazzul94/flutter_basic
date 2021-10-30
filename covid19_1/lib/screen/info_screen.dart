@@ -1,5 +1,5 @@
-import 'package:covid_19_1/constant.dart';
-import 'package:covid_19_1/widgets/my_header.dart';
+import 'package:covid19_1/constant.dart';
+import 'package:covid19_1/widgets/my_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -41,9 +41,10 @@ class _InfoScreenState extends State<InfoScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             MyHeader(
+              title: "info",
               image: "assets/icons/coronadr.svg",
-              textTop: "Get to know",
-              textBottom: "About Covid-19.",
+              textTop: "Covid-19 에 ",
+              textBottom: "대해서 알아봅시다.",
               offset: offset,
             ),
             Padding(
@@ -52,7 +53,7 @@ class _InfoScreenState extends State<InfoScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Symptoms",
+                    "다음과 같은 증상이 있을 수 있습니다.",
                     style: kTitleTextstyle,
                   ),
                   SizedBox(height: 20),
@@ -63,34 +64,34 @@ class _InfoScreenState extends State<InfoScreen> {
                       children: <Widget>[
                         SymptomCard(
                           image: "assets/images/headache.png",
-                          title: "Headache",
+                          title: "두통",
                           isActive: true,
                         ),
                         SymptomCard(
                           image: "assets/images/caugh.png",
-                          title: "Caugh",
+                          title: "기침",
                         ),
                         SymptomCard(
                           image: "assets/images/fever.png",
-                          title: "Fever",
+                          title: "고열",
                         ),
                       ],
                     ),
                   ),
                   SizedBox(height: 20),
-                  Text("Prevention", style: kTitleTextstyle),
+                  Text("예방하기", style: kTitleTextstyle),
                   SizedBox(height: 20),
                   PreventCard(
                     text:
                         "Since the start of the coronavirus outbreak some places have fully embraced wearing facemasks",
                     image: "assets/images/wear_mask.png",
-                    title: "Wear face mask",
+                    title: "마스크를 씁니다.",
                   ),
                   PreventCard(
                     text:
                         "Since the start of the coronavirus outbreak some places have fully embraced wearing facemasks",
                     image: "assets/images/wash_hands.png",
-                    title: "Wash your hands",
+                    title: "손을 30초 이상 씻습니다.",
                   ),
                   SizedBox(height: 50),
                 ],

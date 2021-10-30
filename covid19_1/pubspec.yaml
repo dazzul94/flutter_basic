@@ -1,4 +1,4 @@
-name: covid_19_1
+name: covid19_1
 description: A new Flutter project.
 
 version: 1.0.0+1
@@ -15,6 +15,9 @@ dependencies:
 
   # cupertino_icons: ^0.1.2
   cupertino_icons: ^1.0.2
+  http: ^0.13.4
+  xml2json: ^5.3.1
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

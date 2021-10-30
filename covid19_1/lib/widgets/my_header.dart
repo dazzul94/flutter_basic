@@ -1,15 +1,17 @@
-import 'package:covid_19_1/constant.dart';
-import 'package:covid_19_1/info_screen.dart';
+import 'package:covid19_1/constant.dart';
+import 'package:covid19_1/screen/info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MyHeader extends StatefulWidget {
+  final String title;   // 화면을 구분하기 위한 title
   final String image;
   final String textTop;
   final String textBottom;
   final double offset;
   const MyHeader(
       {Key? key, 
+      required this.title,
       required this.image, 
       required this.textTop, 
       required this.textBottom, 
@@ -47,14 +49,18 @@ class _MyHeaderState extends State<MyHeader> {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return InfoScreen();
-                    },
-                  ),
-                );
+                if(widget.title == 'home') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return InfoScreen();
+                      },
+                    ),
+                  );
+                } else if (widget.title == 'info') {
+                  Navigator.pop(context);
+                }
               },
               child: SvgPicture.asset("assets/icons/menu.svg"),
             ),

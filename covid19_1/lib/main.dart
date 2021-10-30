@@ -1,8 +1,10 @@
-import 'package:covid_19_1/constant.dart';
-import 'package:covid_19_1/widgets/counter.dart';
-import 'package:covid_19_1/widgets/my_header.dart';
+import 'package:covid19_1/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:covid19_1/screen/home_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';    // utf8.decode, jsonDecode
+import 'package:xml2json/xml2json.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,213 +12,121 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Covid 19',
-      theme: ThemeData(
-          scaffoldBackgroundColor: kBackgroundColor,
-          fontFamily: "Poppins",
-          textTheme: TextTheme(
-            bodyText1: TextStyle(color: kBodyTextColor),
-          )),
-      home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  final controller = ScrollController();
-  double offset = 0;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    controller.addListener(onScroll);
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    controller.dispose();
-    super.dispose();
-  }
-
-  void onScroll() {
-    setState(() {
-      offset = (controller.hasClients) ? controller.offset : 0;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        controller: controller,
-        child: Column(
-          children: <Widget>[
-            MyHeader(
-              image: "assets/icons/Drcorona.svg",
-              textTop: "All you need",
-              textBottom: "is stay at home.",
-              offset: offset,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              height: 60,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(25),
-                border: Border.all(
-                  color: Color(0xFFE5E5E5),
-                ),
-              ),
-              child: Row(
-                children: <Widget>[
-                  SvgPicture.asset("assets/icons/maps-and-flags.svg"),
-                  SizedBox(width: 20),
-                  Expanded(
-                    child: DropdownButton(
-                      isExpanded: true,
-                      underline: SizedBox(),
-                      icon: SvgPicture.asset("assets/icons/dropdown.svg"),
-                      value: "Indonesia",
-                      items: [
-                        'Indonesia',
-                        'Bangladesh',
-                        'United States',
-                        'Japan'
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (value) {},
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "Case Update\n",
-                              style: kTitleTextstyle,
-                            ),
-                            TextSpan(
-                              text: "Newest update March 28",
-                              style: TextStyle(
-                                color: kTextLightColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Spacer(),
-                      Text(
-                        "See details",
-                        style: TextStyle(
-                          color: kPrimaryColor,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Container(
-                    padding: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(0, 4),
-                          blurRadius: 30,
-                          color: kShadowColor,
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Counter(
-                          color: kInfectedColor,
-                          number: 1046,
-                          title: "Infected",
-                        ),
-                        Counter(
-                          color: kDeathColor,
-                          number: 87,
-                          title: "Deaths",
-                        ),
-                        Counter(
-                          color: kRecovercolor,
-                          number: 46,
-                          title: "Recovered",
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "Spread of Virus",
-                        style: kTitleTextstyle,
-                      ),
-                      Text(
-                        "See details",
-                        style: TextStyle(
-                          color: kPrimaryColor,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 20),
-                    padding: EdgeInsets.all(20),
-                    height: 178,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(0, 10),
-                          blurRadius: 30,
-                          color: kShadowColor,
-                        ),
-                      ],
-                    ),
-                    child: Image.asset(
-                      "assets/images/map.png",
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+    return ChangeNotifierProvider(
+      create: (_) => MyData(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Covid 19',
+        theme: ThemeData(
+            scaffoldBackgroundColor: kBackgroundColor,
+            fontFamily: "Poppins",
+            // textTheme: TextTheme(
+            //   body1: TextStyle(color: kBodyTextColor),
+            // )
         ),
+        home: HomeScreen(),
       ),
     );
   }
 }
+
+class MyData extends ChangeNotifier {
+  int decideCnt = 0;
+  int clearCnt = 0;
+  int deathCnt = 0; 
+  String stateDt = '';
+  List<double> barChartDatas = [];
+  List<String> barChartDay = [];
+
+  MyData() {
+    _getRequest().then((value) {
+      notifyListeners();
+    });
+  }
+  
+  Future<void> _getRequest() async {
+    // 일반적으로 8일치면 계산이 됨 -7
+    // 아침에는 오늘 데이터가 없어서 9일치가 필요 -8
+    // 주말에는 전날 데이터가 없어서 10일치가 필요 -9
+    String sToday = DateTime.now()
+                            .toString().substring(0, 10).replaceAll('-', '');
+    String sYesterday = DateTime.now()
+                                .add(Duration(days: -9))
+                                .toString().substring(0, 10).replaceAll('-', '');
+    // print(sToday);
+    // print(sYesterday);
+
+    String sUrl = 'http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson';
+    // String var1 = Uri.encodeQueryComponent('sServiceKey');
+    String var1 = 'serviceKey=Jq85ygWHIFokHtft66EcimSFCbh17XbOauqOKruJKWNqmDizs1gmtFyoWpn0G3ZZW25K06slCQfmWtDGlzV7dA%3D%3D';
+    String var2 = 'pageNo=1';
+    String var3 = 'numOfRows=20';
+    String var4 = 'startCreateDt=$sYesterday';
+    String var5 = 'endCreateDt=$sToday';
+    String sReqUrl = "$sUrl?$var1&$var2&$var3&$var4&$var5";
+    print(sReqUrl);
+
+    var url = Uri.parse(sReqUrl);
+    http.Response response = await http.get(
+        url,
+        // headers: {"Accept": "application/xml"}
+    );
+    
+    var statusCode = response.statusCode; 
+    if (statusCode == 200) {
+      var responseBody = utf8.decode(response.bodyBytes); // for 한글
+      // print(responseBody);
+      getXMLData(responseBody);
+    }
+  }
+
+  void getXMLData(String xmlData) {
+
+    Xml2Json xml2json = Xml2Json();
+    xml2json.parse(xmlData);
+    var json = xml2json.toParker(); // the only method that worked for my XML type.
+    // print(json);    // <-- String
+
+    var data1 = jsonDecode(json);
+    // print(data1);   // Json Object
+    // print(data1['response']['body']['items']['item']);
+
+    List data2 = data1['response']['body']['items']['item'];
+    // List data2 = data1['response']['body']['items'];
+    // Map data31 = data2[0];
+    // print(data31);
+
+    stateDt = data2[0]['stateDt'].substring(0, 4) + '-' +
+              data2[0]['stateDt'].substring(4, 6) + '-' +
+              data2[0]['stateDt'].substring(6, 8);
+    print(data2.length);
+
+    for (int i=6; i>=0; i--) {
+      int cnt1 = int.tryParse(data2[i]['decideCnt']) ?? 0;      // 오늘 
+      int cnt2 = int.tryParse(data2[i + 1]['decideCnt']) ?? 0;  // 어제
+      int cnt = cnt1 - cnt2;
+      barChartDatas.add(cnt.toDouble());
+
+      String sStateDt = data2[i]['stateDt'].substring(4, 8);
+
+      barChartDay.add(sStateDt);
+    }
+    print(barChartDay);
+
+    int decideCnt1 = int.tryParse(data2[0]['decideCnt']) ?? 0;  // 오늘 
+    int decideCnt2 = int.tryParse(data2[1]['decideCnt']) ?? 0;  // 어제
+    // print(decideCnt);
+    decideCnt = decideCnt1 - decideCnt2;
+
+    int deathCnt1 = int.tryParse(data2[0]['deathCnt']) ?? 0;  // 오늘 
+    int deathCnt2 = int.tryParse(data2[1]['deathCnt']) ?? 0;  // 어제
+    // print(deathCnt);
+    deathCnt = deathCnt1 - deathCnt2;
+
+    int clearCnt1 = int.tryParse(data2[0]['clearCnt']) ?? 0;  // 오늘 
+    int clearCnt2 = int.tryParse(data2[1]['clearCnt']) ?? 0;  // 어제
+    clearCnt = clearCnt1 - clearCnt2;
+  }
+
+}
+
