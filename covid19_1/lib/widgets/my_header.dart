@@ -1,5 +1,5 @@
-import 'package:covid_19/constant.dart';
-import 'package:covid_19/info_screen.dart';
+import 'package:covid_19_1/constant.dart';
+import 'package:covid_19_1/info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -9,7 +9,11 @@ class MyHeader extends StatefulWidget {
   final String textBottom;
   final double offset;
   const MyHeader(
-      {Key key, this.image, this.textTop, this.textBottom, this.offset})
+      {Key? key, 
+      required this.image, 
+      required this.textTop, 
+      required this.textBottom, 
+      required this.offset})
       : super(key: key);
 
   @override

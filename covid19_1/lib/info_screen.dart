@@ -1,5 +1,5 @@
-import 'package:covid_19/constant.dart';
-import 'package:covid_19/widgets/my_header.dart';
+import 'package:covid_19_1/constant.dart';
+import 'package:covid_19_1/widgets/my_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -108,10 +108,10 @@ class PreventCard extends StatelessWidget {
   final String title;
   final String text;
   const PreventCard({
-    Key key,
-    this.image,
-    this.title,
-    this.text,
+    Key? key,
+    required this.image,
+    required this.title,
+    required this.text,
   }) : super(key: key);
 
   @override
@@ -185,9 +185,9 @@ class SymptomCard extends StatelessWidget {
   final String title;
   final bool isActive;
   const SymptomCard({
-    Key key,
-    this.image,
-    this.title,
+    Key? key,
+    required this.image,
+    required this.title,
     this.isActive = false,
   }) : super(key: key);
 

@@ -1,4 +1,4 @@
-import 'package:covid_19/constant.dart';
+import 'package:covid_19_1/constant.dart';
 import 'package:flutter/material.dart';
 
 class Counter extends StatelessWidget {
@@ -6,10 +6,10 @@ class Counter extends StatelessWidget {
   final Color color;
   final String title;
   const Counter({
-    Key key,
-    this.number,
-    this.color,
-    this.title,
+    Key? key,
+    required this.number,
+    required this.color,
+    required this.title,
   }) : super(key: key);
 
   @override
