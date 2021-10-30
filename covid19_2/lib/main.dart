@@ -1,5 +1,5 @@
-import 'package:covid_19/constants.dart';
-import 'package:covid_19/screens/home_screen.dart';
+import 'package:covid19_2/constants.dart';
+import 'package:covid19_2/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());

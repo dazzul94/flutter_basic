@@ -1,5 +1,5 @@
-import 'package:covid_19/constants.dart';
-import 'package:covid_19/widgets/line_chart.dart';
+import 'package:covid19_2/constants.dart';
+import 'package:covid19_2/widgets/line_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -7,14 +7,17 @@ class InfoCard extends StatelessWidget {
   final String title;
   final int effectedNum;
   final Color iconColor;
-  final Function press;
-  const InfoCard({
-    Key key,
-    this.title,
-    this.effectedNum,
-    this.iconColor,
-    this.press,
-  }) : super(key: key);
+  Function()? press;
+
+  InfoCard({
+    Key? key,
+    required this.title,
+    required this.effectedNum,
+    required this.iconColor,
+    press,
+  }) : super(key: key) {
+    this.press = press;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +79,7 @@ class InfoCard extends StatelessWidget {
                                 TextSpan(
                                   text: "$effectedNum \n",
                                   style:
-                                      Theme.of(context).textTheme.headline6.copyWith(
+                                      Theme.of(context).textTheme.headline6!.copyWith(
                                             fontWeight: FontWeight.bold,
                                           ),
                                 ),

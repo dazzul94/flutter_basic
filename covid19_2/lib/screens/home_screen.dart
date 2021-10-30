@@ -1,6 +1,6 @@
-import 'package:covid_19/constants.dart';
-import 'package:covid_19/screens/details_screen.dart';
-import 'package:covid_19/widgets/info_card.dart';
+import 'package:covid19_2/constants.dart';
+import 'package:covid19_2/screens/details_screen.dart';
+import 'package:covid19_2/widgets/info_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -76,7 +76,7 @@ class HomeScreen extends StatelessWidget {
                       "Preventions",
                       style: Theme.of(context)
                           .textTheme
-                          .headline6
+                          .headline6!
                           .copyWith(fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 20),
@@ -145,7 +145,7 @@ class HomeScreen extends StatelessWidget {
                     text: "Dial 999 for \nMedical Help!\n",
                     style: Theme.of(context)
                         .textTheme
-                        .headline6
+                        .headline6!
                         .copyWith(color: Colors.white),
                   ),
                   TextSpan(
@@ -194,9 +194,9 @@ class PreventitonCard extends StatelessWidget {
   final String svgSrc;
   final String title;
   const PreventitonCard({
-    Key key,
-    this.svgSrc,
-    this.title,
+    Key? key,
+    required this.svgSrc,
+    required this.title,
   }) : super(key: key);
 
   @override
@@ -207,7 +207,7 @@ class PreventitonCard extends StatelessWidget {
         Text(
           title,
           style:
-              Theme.of(context).textTheme.bodyText1.copyWith(color: kPrimaryColor),
+              Theme.of(context).textTheme.bodyText1!.copyWith(color: kPrimaryColor),
         )
       ],
     );

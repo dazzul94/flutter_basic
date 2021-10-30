@@ -1,5 +1,5 @@
-import 'package:covid_19/constants.dart';
-import 'package:covid_19/widgets/weekly_chart.dart';
+import 'package:covid19_2/constants.dart';
+import 'package:covid19_2/widgets/weekly_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -7,7 +7,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       appBar: buildDetailsAppBar(context),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -101,7 +101,7 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 
-  RichText buildInfoTextWithPercentage({String title, String percentage}) {
+  RichText buildInfoTextWithPercentage({String? title, String? percentage}) {
     return RichText(
       text: TextSpan(
         children: [
@@ -131,7 +131,7 @@ class DetailsScreen extends StatelessWidget {
           "547 ",
           style: Theme.of(context)
               .textTheme
-              .headline2
+              .headline2!
               .copyWith(color: kPrimaryColor, height: 1.2),
         ),
         Text(
